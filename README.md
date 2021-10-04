@@ -103,7 +103,7 @@ Lo descargo, descomprimo y pongo en mi carpeta de mi entorno local `www`
 MariaDB [(none)]> CREATE DATABASE practica-wordpress;
 
 MariaDB [(none)]> GRANT ALL PRIVILEGES ON practica-wordpress.* TO "jose"@"localhost" 
-IDENTIFIED BY "domi";
+IDENTIFIED BY "el_password";
 
 MariaDB [(none)]> FLUSH PRIVILEGES;
 
@@ -133,7 +133,7 @@ define( 'DB_NAME', 'practica-wordpress' );
 define( 'DB_USER', 'jose' );
 
 /** MySQL database password */
-define( 'DB_PASSWORD', 'domi' );
+define( 'DB_PASSWORD', 'el_password' );
 ```
 
 
@@ -190,7 +190,7 @@ Entro a mi localhost:
 - Idioma Español
 - Titulo del sitio: Dragon Negro
 - Usuario: jose
-- Password: domi
+- Password: el_password
 [x] Confirmar password
 
 [x] No indexar el sitio 
