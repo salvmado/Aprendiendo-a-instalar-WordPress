@@ -1,5 +1,8 @@
 # Instalación de WordPress 
-> Ya tengo instalado mi servidor local (LAMP) Debian, en el Subsistema de Windows para Linux (WSL2).
+> Ya tengo instalado mi servidor local (LAMP) Debian, en el Subsistema de Windows para Linux (WSL2),
+> si mi sistema fuera GNU/Linux, omito los pasos de windows.
+
+Tengo que poner el link de las instrucciones: cómo instale el server local.
 
 <br/>  
 
@@ -9,41 +12,42 @@
 
 **Preparo mi directorio.**
 ```sh
-:~$ mkdir practica-wordpress
+:~$ mkdir -p projects/practica-wordpress
 ```
 
-**Agrego un nuevo host a mi sistema Debian y a Windows**
+**Agrego un nuevo host**
 
+En Debian
 ```sh
 :~$ su -
 
 :~# vim /etc/hosts
 
-127.0.0.1   dragonnegro.local
-::1         dragonnegro.local
+127.0.0.1   practica-wordpress.local
+::1         practica-wordpress.local
 ```
 
-Y En windows abro mi block de notas como administrador y accedo al archivo hosts
+En windows: block de notas como administrador y accedo al archivo hosts 
 `c: > Windows > System32 > drivers > etc > hosts`
 
 ```
-127.0.0.1   dragonnegro.local
-::1         dragonnegro.local
+127.0.0.1   practica-wordpress.local
+::1         practica-wordpress.local
 ```
 
 **Configuro un nuevo VirtualHosts**
 
 ```sh
-:~# vim /etc/apache2/sites-available/dragonnegro.conf
+:~# vim /etc/apache2/sites-available/practica-wordpress.conf
 
 <VirtualHost *:80>
-	ServerName dragonnegro.local
-	DocumentRoot /home/jose/projects/dragonnegro/www
-	ErrorLog /home/jose/projects/dragonnegro/logs/errors.log
-	CustomLog /home/jose/projects/dragonnegro/logs/access.log combined
+	ServerName practica-wordpress.local
+	DocumentRoot /home/jose/projects/practica-wordpress/www
+	ErrorLog /home/jose/projects/practica-wordpress/logs/errors.log
+	CustomLog /home/jose/projects/practica-wordpress/logs/access.log combined
 </VirtualHost>
 
-<Directory /home/jose/projects/dragonnegro/www>
+<Directory /home/jose/projects/practica-wordpress/www>
 	Options -Indexes -MultiViews
 	AllowOverride All
 </Directory>
@@ -52,7 +56,7 @@ Y En windows abro mi block de notas como administrador y accedo al archivo hosts
 **Habilité mi nuevo VirtualHost en Apache**
 
 ```sh
-:~# a2ensite dragonnegro.conf
+:~# a2ensite practica-wordpress.conf
 :~# service apache2 restart
 ```
 
@@ -96,9 +100,9 @@ Lo descargo, descomprimo y pongo en mi carpeta de mi entorno local `www`
 ```
 
 ```sql
-MariaDB [(none)]> CREATE DATABASE dragonnegro;
+MariaDB [(none)]> CREATE DATABASE practica-wordpress;
 
-MariaDB [(none)]> GRANT ALL PRIVILEGES ON dragonnegro.* TO "jose"@"localhost" 
+MariaDB [(none)]> GRANT ALL PRIVILEGES ON practica-wordpress.* TO "jose"@"localhost" 
 IDENTIFIED BY "domi";
 
 MariaDB [(none)]> FLUSH PRIVILEGES;
@@ -123,7 +127,7 @@ Tengo que renombrarlo por wp-config.php y modificar estas líneas de código:
 define('FS_METHOD','direct');
 
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'dragonnegro' );
+define( 'DB_NAME', 'practica-wordpress' );
 
 /** MySQL database username */
 define( 'DB_USER', 'jose' );
@@ -154,7 +158,7 @@ define('NONCE_SALT',       'L1jWaoXBKi6K=8oT.%Hu-vbJ{PK5bC9Tf0$K5;1t~;Ru@o[F|');
 **Cambio el prefijo wp_**
 
 ```php
-$table_prefix = 'wp_dragonnegro';
+$table_prefix = 'wp_practica-wordpress';
 ```
 
 > Tengo duda con estos permisos para producción.
@@ -181,7 +185,7 @@ Y a los archivos
 ### Instalando WordPress
 
 Entro a mi localhost: 
-[dragonnegro.local](http://dragonnegro.local/wp-admin/install.php)
+[practica-wordpress.local](http://practica-wordpress.local/wp-admin/install.php)
 
 - Idioma Español
 - Titulo del sitio: Dragon Negro
